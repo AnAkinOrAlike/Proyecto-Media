@@ -32,6 +32,7 @@ input[type = "radio"]{ display:none;}
 }
 
 .table{
+  padding: 0px 20px;
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
@@ -54,7 +55,6 @@ input[type = "radio"]{ display:none;}
   border-top: 1px black solid;
   border-bottom: 1px black solid;  
 }
-
 /*grid de Titulo*/
 .ti{
   grid-column: 1 /span 2;
@@ -73,6 +73,13 @@ input[type = "radio"]{ display:none;}
   border-radius: 15%;
   font-family: 'VG5000';
 }
+
+.ar:active {
+  height: 1cm;
+  box-shadow: 0 0 5px 2px #6e6e6e;
+  color: #d64242;
+}
+
 .gl:hover{
   transform: scale(1.2);
   box-shadow: 0 0 5px 2px #000;
