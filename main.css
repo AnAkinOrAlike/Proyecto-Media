@@ -1,0 +1,119 @@
+/**{
+  background-color: #000;
+}*/
+.grid {
+  border: 2px black solid;
+  height: 6cm;
+  width: 10cm;
+  display: grid;
+  grid-template-columns: 4cm 2.5cm 0.5cm 3cm;
+  grid-template-rows: 2.1cm 1.3cm 1.3cm 1.3cm;
+  margin: 2px;
+  border-radius: 17px;
+  background-color: white;
+}
+
+.star, .star label{
+  direction: rtl;
+  unicode-bidi: bidi-override;
+}
+.star label:hover, .star label:hover ~ label, .star input[type="radio"]:checked ~ label {
+  --bg-color: #a25b44;
+  color: var(--bg-color);
+ }
+input[type = "radio"]{ display:none;}
+
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 16
+}
+
+.table{
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.box {
+  text-align: center;
+  align-content: center;
+  color: black;
+  font-family: 'Bahnschrift', sans-serif;
+  background-color: white;
+}
+
+/*Cabecera de la grid*/
+.hrow {
+  color: white;
+  background-color: #a25b44;
+  grid-row: 1 / span 1;
+  font-family: 'Unispace';
+  border-top: 1px black solid;
+  border-bottom: 1px black solid;  
+}
+
+/*grid de Titulo*/
+.ti{
+  grid-column: 1 /span 2;
+  border-top-left-radius: 14px;
+}
+/*grid de Puntaje*/
+.st{
+  grid-column: 3 / span 2;
+  border-top-right-radius: 14px;
+}
+/*caja de puntaje*/
+.ar{
+  height: 1.3cm;
+  margin-right: 0.5cm;
+  transition: all 0.5s cubic-bezier(1, -0.01, 0, 1.53) 100ms;
+  border-radius: 15%;
+  font-family: 'VG5000';
+}
+.gl:hover{
+  transform: scale(1.2);
+  box-shadow: 0 0 5px 2px #000;
+  border-radius: 30%;
+}
+/*grid de Distribuidor y Categoria*/
+.dccol{
+  grid-column-start: 2;
+  grid-column-end: span 3;   
+  /*border: 1px black solid;*/
+  border-left: 0px;
+}
+  /*grid de duración :/*/
+.dur{
+  grid-column: 4;
+  grid-row: 3;
+  border: 1px black solid;
+  border-right: 0px;
+}
+  /*grid de estreno :/*/
+.est{
+  grid-column: 2 / span 2;
+  border: 1px black solid;
+  border-left: 0px;
+  border-right: 0px;
+}
+/*grid de imagen*/
+.im {
+  grid-column: 1;
+  grid-row: 2 / span 3;
+  margin: 0.45cm 0.48cm;
+  height: 112px;
+  width: 112px;
+}
+/*imagen*/
+.ima{
+  height: 112px;
+  width: 112px;
+  border-radius: 15%;
+  transition: all 0.5s cubic-bezier(1, -0.01, 0, 1.53) 100ms
+}
+.cv{
+  border-bottom-right-radius: 17px;
+}
