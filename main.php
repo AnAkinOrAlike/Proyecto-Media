@@ -11,7 +11,27 @@
     <div class="table">
         <?php
             $db = new PDO('sqlite:main.sqlite');
-            $query = $db->query("SELECT M.*, V.STARS FROM MEDIA M LEFT JOIN VISTAS V ON M.ID_MEDIA = V.ID_MEDIA WHERE M.SEEN = 1 ORDER BY RANDOM()");
+            $query = $db->query("
+                SELECT 
+                    M.*, 
+                    V.STARS,
+                    V.LAST_SEEN,
+                    P.HOUSE,
+                    T.CATEGORIA,
+                    T.DUR_CATG
+                FROM 
+                    MEDIA M 
+                LEFT JOIN 
+                    VISTAS V ON M.ID_MEDIA = V.ID_MEDIA 
+                LEFT JOIN 
+                    PRODUCTORAS P ON M.ID_HOUSE = P.ID_HOUSE
+                LEFT JOIN 
+                    TYPE T ON M.ID_CATEG = T.ID_CATEG
+                WHERE 
+                    M.SEEN = 1 
+                ORDER BY 
+                    RANDOM()
+            ");
             $numGrid = 0;
             $totalRegistrosQuery = $db->query("SELECT COUNT(*) AS total FROM MEDIA WHERE SEEN = 1");
             $totalRegistro = $totalRegistrosQuery->fetch(PDO::FETCH_ASSOC)['total'];
@@ -28,18 +48,21 @@
                         <?php
                             $starCount = intval($registro['STARS']);
                             
-                            for ($i = 0; $i < 5; $i++) { if ($i < $starCount) {
+                            for ($i = 0; $i < 5 - $starCount; $i++) {
+                                echo '<span class="empty-star">&#9733;</span>';
+                            }
+                            for ($i = 0; $i < $starCount; $i++) {
                                 echo '<span class="filled-star">&#9733;</span>';
-                                } else { echo '<span class="empty-star">&#9733;</span>';
-                        }}?>
+                            }
+                            
+                            ?>
                     </div>
                 </div>
                 <div class="box im"><img class="ima gl" src="<?php echo htmlspecialchars($registro['IMG_URL']);?>" alt="<?php echo htmlspecialchars($registro['TITLE']);?>"></div>
-                <div class="box dccol"><?php echo htmlspecialchars($registro['ID_HOUSE']);?></div>
+                <div class="box dccol"><?php echo htmlspecialchars($registro['HOUSE']);?></div>
                 <div class="box est"><?php echo htmlspecialchars($registro['YEAR']);?></div>
-                <div class="box dur"><?php echo htmlspecialchars($registro['LENGHT']);?> minutos</div>
-                <div class="box dccol cv"><?php echo htmlspecialchars($registro['ID_CATEG']);?></div>
-                <?php } ?>
+                <div class="box dccol cv"><?php echo htmlspecialchars($registro['CATEGORIA']);?> vista el: <?php echo htmlspecialchars($registro['LAST_SEEN']);?></div>
+                <div class="box dur"><?php echo htmlspecialchars($registro['LENGHT']);?> <?php echo htmlspecialchars($registro['DUR_CATG']);?></div><?php } ?>
         </div>
 
         <div class="grid">
@@ -53,146 +76,26 @@
                         <?php
                             $starCount = intval($registro['STARS']);
                             
-                            for ($i = 0; $i < 5; $i++) { if ($i < $starCount) {
+                            for ($i = 0; $i < 5 - $starCount; $i++) {
+                                echo '<span class="empty-star">&#9733;</span>';
+                            }
+                            for ($i = 0; $i < $starCount; $i++) {
                                 echo '<span class="filled-star">&#9733;</span>';
-                                } else { echo '<span class="empty-star">&#9733;</span>';
-                        }}?>
+                            }
+                            
+                            ?>
                     </div>
                 </div>
                 <div class="box im"><img class="ima gl" src="<?php echo htmlspecialchars($registro['IMG_URL']);?>" alt="<?php echo htmlspecialchars($registro['TITLE']);?>"></div>
-                <div class="box dccol"><?php echo htmlspecialchars($registro['ID_HOUSE']);?></div>
+                <div class="box dccol"><?php echo htmlspecialchars($registro['HOUSE']);?></div>
                 <div class="box est"><?php echo htmlspecialchars($registro['YEAR']);?></div>
-                <div class="box dur"><?php echo htmlspecialchars($registro['LENGHT']);?> minutos</div>
-                <div class="box dccol cv"><?php echo htmlspecialchars($registro['ID_CATEG']);?></div>
-                <?php } ?>
+                <div class="box dccol cv"><?php echo htmlspecialchars($registro['CATEGORIA']);?></div>
+                <div class="box dur"><?php echo htmlspecialchars($registro['LENGHT']);?> <?php echo htmlspecialchars($registro['DUR_CATG']);?></div><?php } ?>
         </div>
 
-        <div class="grid">
-            <?php if ($numGrid < $totalRegistro) {
-                $registro = $query->fetch(PDO::FETCH_ASSOC);
-                $numGrid++;
-            ?>
-                <div class="box hrow ti" id="hr"><h1><?php echo htmlspecialchars($registro['TITLE']);?></h1></div>
-                <div class="box hrow st" id="mhr" data-star="<?php echo htmlspecialchars($registro['STARS']);?>">
-                    <div class="box ar gl star" id="star">
-                        <?php
-                            $starCount = intval($registro['STARS']);
-                            
-                            for ($i = 0; $i < 5; $i++) { if ($i < $starCount) {
-                                echo '<span class="filled-star">&#9733;</span>';
-                                } else { echo '<span class="empty-star">&#9733;</span>';
-                        }}?>
-                    </div>
-                </div>
-                <div class="box im"><img class="ima gl" src="<?php echo htmlspecialchars($registro['IMG_URL']);?>" alt="<?php echo htmlspecialchars($registro['TITLE']);?>"></div>
-                <div class="box dccol"><?php echo htmlspecialchars($registro['ID_HOUSE']);?></div>
-                <div class="box est"><?php echo htmlspecialchars($registro['YEAR']);?></div>
-                <div class="box dur"><?php echo htmlspecialchars($registro['LENGHT']);?> minutos</div>
-                <div class="box dccol cv"><?php echo htmlspecialchars($registro['ID_CATEG']);?></div>
-                <?php } ?>
-        </div>
-
-        <div class="grid">
-            <?php if ($numGrid < $totalRegistro) {
-                $registro = $query->fetch(PDO::FETCH_ASSOC);
-                $numGrid++;
-            ?>
-                <div class="box hrow ti" id="hr"><h1><?php echo htmlspecialchars($registro['TITLE']);?></h1></div>
-                <div class="box hrow st" id="mhr" data-star="<?php echo htmlspecialchars($registro['STARS']);?>">
-                    <div class="box ar gl star" id="star">
-                        <?php
-                            $starCount = intval($registro['STARS']);
-                            
-                            for ($i = 0; $i < 5; $i++) { if ($i < $starCount) {
-                                echo '<span class="filled-star">&#9733;</span>';
-                                } else { echo '<span class="empty-star">&#9733;</span>';
-                        }}?>
-                    </div>
-                </div>
-                <div class="box im"><img class="ima gl" src="<?php echo htmlspecialchars($registro['IMG_URL']);?>" alt="<?php echo htmlspecialchars($registro['TITLE']);?>"></div>
-                <div class="box dccol"><?php echo htmlspecialchars($registro['ID_HOUSE']);?></div>
-                <div class="box est"><?php echo htmlspecialchars($registro['YEAR']);?></div>
-                <div class="box dur"><?php echo htmlspecialchars($registro['LENGHT']);?> minutos</div>
-                <div class="box dccol cv"><?php echo htmlspecialchars($registro['ID_CATEG']);?></div>
-                <?php } ?>
-        </div>
-
-        <div class="grid">
-            <?php if ($numGrid < $totalRegistro) {
-                $registro = $query->fetch(PDO::FETCH_ASSOC);
-                $numGrid++;
-            ?>
-                <div class="box hrow ti" id="hr"><h1><?php echo htmlspecialchars($registro['TITLE']);?></h1></div>
-                <div class="box hrow st" id="mhr" data-star="<?php echo htmlspecialchars($registro['STARS']);?>">
-                    <div class="box ar gl star" id="star">
-                        <?php
-                            $starCount = intval($registro['STARS']);
-                            
-                            for ($i = 0; $i < 5; $i++) { if ($i < $starCount) {
-                                echo '<span class="filled-star">&#9733;</span>';
-                                } else { echo '<span class="empty-star">&#9733;</span>';
-                        }}?>
-                    </div>
-                </div>
-                <div class="box im"><img class="ima gl" src="<?php echo htmlspecialchars($registro['IMG_URL']);?>" alt="<?php echo htmlspecialchars($registro['TITLE']);?>"></div>
-                <div class="box dccol"><?php echo htmlspecialchars($registro['ID_HOUSE']);?></div>
-                <div class="box est"><?php echo htmlspecialchars($registro['YEAR']);?></div>
-                <div class="box dur"><?php echo htmlspecialchars($registro['LENGHT']);?> minutos</div>
-                <div class="box dccol cv"><?php echo htmlspecialchars($registro['ID_CATEG']);?></div>
-                <?php } ?>
-        </div>
-
-        <div class="grid">
-            <?php if ($numGrid < $totalRegistro) {
-                $registro = $query->fetch(PDO::FETCH_ASSOC);
-                $numGrid++;
-            ?>
-                <div class="box hrow ti" id="hr"><h1><?php echo htmlspecialchars($registro['TITLE']);?></h1></div>
-                <div class="box hrow st" id="mhr" data-star="<?php echo htmlspecialchars($registro['STARS']);?>">
-                    <div class="box ar gl star" id="star">
-                        <?php
-                            $starCount = intval($registro['STARS']);
-                            
-                            for ($i = 0; $i < 5; $i++) { if ($i < $starCount) {
-                                echo '<span class="filled-star">&#9733;</span>';
-                                } else { echo '<span class="empty-star">&#9733;</span>';
-                        }}?>
-                    </div>
-                </div>
-                <div class="box im"><img class="ima gl" src="<?php echo htmlspecialchars($registro['IMG_URL']);?>" alt="<?php echo htmlspecialchars($registro['TITLE']);?>"></div>
-                <div class="box dccol"><?php echo htmlspecialchars($registro['ID_HOUSE']);?></div>
-                <div class="box est"><?php echo htmlspecialchars($registro['YEAR']);?></div>
-                <div class="box dur"><?php echo htmlspecialchars($registro['LENGHT']);?> minutos</div>
-                <div class="box dccol cv"><?php echo htmlspecialchars($registro['ID_CATEG']);?></div>
-                <?php } ?>
-        </div>
-
-        <div class="grid">
-            <?php if ($numGrid < $totalRegistro) {
-                $registro = $query->fetch(PDO::FETCH_ASSOC);
-                $numGrid++;
-            ?>
-                <div class="box hrow ti" id="hr"><h1><?php echo htmlspecialchars($registro['TITLE']);?></h1></div>
-                <div class="box hrow st" id="mhr" data-star="<?php echo htmlspecialchars($registro['STARS']);?>">
-                    <div class="box ar gl star" id="star">
-                        <?php
-                            $starCount = intval($registro['STARS']);
-                            
-                            for ($i = 0; $i < 5; $i++) { if ($i < $starCount) {
-                                echo '<span class="filled-star">&#9733;</span>';
-                                } else { echo '<span class="empty-star">&#9733;</span>';
-                        }}?>
-                    </div>
-                </div>
-                <div class="box im"><img class="ima gl" src="<?php echo htmlspecialchars($registro['IMG_URL']);?>" alt="<?php echo htmlspecialchars($registro['TITLE']);?>"></div>
-                <div class="box dccol"><?php echo htmlspecialchars($registro['ID_HOUSE']);?></div>
-                <div class="box est"><?php echo htmlspecialchars($registro['YEAR']);?></div>
-                <div class="box dur"><?php echo htmlspecialchars($registro['LENGHT']);?> minutos</div>
-                <div class="box dccol cv"><?php echo htmlspecialchars($registro['ID_CATEG']);?></div>
-                <?php } ?>
-        </div>
         
-        <div class="grid">
+
+        <div class="grid base">
                 <div class="box hrow ti" id="hr"><h1>Titulo</h1></div>
                 <div class="box hrow st" id="mhr">
                     <div class="box ar gl star" id="star">
@@ -218,7 +121,7 @@
         <?php echo "Se muestran {$numGrid} div.grid"; ?>
     </div>
 <div style="display: flex;justify-content: center;">
-    <button class="gl ar"><span class="material-symbols-outlined">refresh</span></button>
+    <button class="gl ar" onclick="location.reload();"><span class="material-symbols-outlined">refresh</span></button>
 
     <button class="gl ar"><span class="material-symbols-outlined">arrow_back</span></button>
 
