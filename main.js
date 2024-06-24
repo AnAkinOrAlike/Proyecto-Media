@@ -4,13 +4,8 @@ document.addEventListener("DOMContentLoaded", function() {
         var selectedColor = this.value;
         document.getElementById('headline').style.backgroundColor = selectedColor;
         document.getElementById('box').style.backgroundColor = selectedColor;
-        
-        for (let i = 1; i <= 5; i++) {    
-            let starId = 'star' + i;
-            let element = document.getElementById(bxstar);
-            if (element) {
-                element.style.setProperty('--hex-color', selectedColor);
-}}})});
+        document.getElementById('star').style.color = selectedColor;
+})});
 
 document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('.box').forEach(function(box) {

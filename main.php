@@ -18,6 +18,7 @@
                     V.LAST_SEEN,
                     P.HOUSE,
                     T.CATEGORIA,
+                    D.ARTIST,
                     T.DUR_CATG
                 FROM 
                     MEDIA M 
@@ -26,9 +27,11 @@
                 LEFT JOIN 
                     PRODUCTORAS P ON M.ID_HOUSE = P.ID_HOUSE
                 LEFT JOIN 
+                    DIRECTORES D ON M.ID_ARTST = D.ID_ARTST
+                LEFT JOIN 
                     TYPE T ON M.ID_CATEG = T.ID_CATEG
                 WHERE 
-                    M.SEEN = 1 
+                    M.SEEN = 1
                 ORDER BY 
                     RANDOM()
             ");
@@ -42,27 +45,30 @@
                 $registro = $query->fetch(PDO::FETCH_ASSOC);
                 $numGrid++;
             ?>
-                <div class="box hrow ti" id="hr"><h1><?php echo htmlspecialchars($registro['TITLE']);?></h1></div>
-                <div class="box hrow st" id="mhr" data-star="<?php echo htmlspecialchars($registro['STARS']);?>">
-                    <div class="box ar gl star" id="star">
+                <div class="ghti" id="headline">
+                    <?php echo htmlspecialchars($registro['TITLE']);?>
+                    <div class="rhyr"><?php echo htmlspecialchars($registro['YEAR']);?></div>
+                </div>
+                <div class="ghbs" id="box" data-star="<?php echo htmlspecialchars($registro['STARS']);?>">
+                    <div class="bstr gl" id="star">
                         <?php
                             $starCount = intval($registro['STARS']);
                             
-                            for ($i = 0; $i < 5 - $starCount; $i++) {
-                                echo '<span class="empty-star">&#9733;</span>';
-                            }
                             for ($i = 0; $i < $starCount; $i++) {
                                 echo '<span class="filled-star">&#9733;</span>';
+                            }
+                            for ($i = 0; $i < 5 - $starCount; $i++) {
+                                echo '<span class="empty-star">&#9734;</span>';
                             }
                             
                             ?>
                     </div>
                 </div>
-                <div class="box im"><img class="ima gl" src="<?php echo htmlspecialchars($registro['IMG_URL']);?>" alt="<?php echo htmlspecialchars($registro['TITLE']);?>"></div>
-                <div class="box dccol"><?php echo htmlspecialchars($registro['HOUSE']);?></div>
-                <div class="box est"><?php echo htmlspecialchars($registro['YEAR']);?></div>
+                <div class="gbim"><img class="bima gl" src="<?php echo htmlspecialchars($registro['IMG_URL']);?>" alt="<?php echo htmlspecialchars($registro['TITLE']);?>"></div>
+                <div class="box dccol"><?php echo htmlspecialchars($registro['LENGHT']);?> <?php echo htmlspecialchars($registro['DUR_CATG']);?></div>
+                <div class="box est"><?php echo htmlspecialchars($registro['ARTIST']);?></div>
+                <div class="box dur"><?php echo htmlspecialchars($registro['HOUSE']);?></div><?php } ?>
                 <div class="box dccol cv"><?php echo htmlspecialchars($registro['CATEGORIA']);?> vista el: <?php echo htmlspecialchars($registro['LAST_SEEN']);?></div>
-                <div class="box dur"><?php echo htmlspecialchars($registro['LENGHT']);?> <?php echo htmlspecialchars($registro['DUR_CATG']);?></div><?php } ?>
         </div>
 
         <div class="grid">
@@ -70,9 +76,12 @@
                 $registro = $query->fetch(PDO::FETCH_ASSOC);
                 $numGrid++;
             ?>
-                <div class="box hrow ti" id="hr"><h1><?php echo htmlspecialchars($registro['TITLE']);?></h1></div>
-                <div class="box hrow st" id="mhr" data-star="<?php echo htmlspecialchars($registro['STARS']);?>">
-                    <div class="box ar gl star" id="star">
+                <div class="ghti" id="headbg">
+                    <?php echo htmlspecialchars($registro['TITLE']);?>
+                    <div class="rhyr"><?php echo htmlspecialchars($registro['YEAR']);?></div>
+                </div>
+                <div class="box hrow st" id="headpq" data-star="<?php echo htmlspecialchars($registro['STARS']);?>">
+                    <div class="box ar gl star" id="bxstar">
                         <?php
                             $starCount = intval($registro['STARS']);
                             
@@ -86,11 +95,14 @@
                             ?>
                     </div>
                 </div>
-                <div class="box im"><img class="ima gl" src="<?php echo htmlspecialchars($registro['IMG_URL']);?>" alt="<?php echo htmlspecialchars($registro['TITLE']);?>"></div>
-                <div class="box dccol"><?php echo htmlspecialchars($registro['HOUSE']);?></div>
-                <div class="box est"><?php echo htmlspecialchars($registro['YEAR']);?></div>
-                <div class="box dccol cv"><?php echo htmlspecialchars($registro['CATEGORIA']);?></div>
-                <div class="box dur"><?php echo htmlspecialchars($registro['LENGHT']);?> <?php echo htmlspecialchars($registro['DUR_CATG']);?></div><?php } ?>
+                <div class="box im">
+                    <img class="ima gl" src="<?php echo htmlspecialchars($registro['IMG_URL']);?>" alt="<?php echo htmlspecialchars($registro['TITLE']);?>">
+                </div>
+                <div class="box dccol"><?php echo htmlspecialchars($registro['LENGHT']);?> <?php echo htmlspecialchars($registro['DUR_CATG']);?></div>
+                <div class="box est"><?php echo htmlspecialchars($registro['ARTIST']);?></div>
+                <div class="box dccol cv"><?php echo htmlspecialchars($registro['CATEGORIA']);?> vista el: <?php echo htmlspecialchars($registro['LAST_SEEN']);?></div>
+                <div class="box dur"><?php echo htmlspecialchars($registro['HOUSE']);?></div>
+            <?php } ?>
         </div>
 
         
@@ -125,7 +137,7 @@
 
     <button class="gl ar"><span class="material-symbols-outlined">arrow_back</span></button>
 
-    <input type="color" id="colorPicker" class="ar gl">
+    <input type="color" id="colorPicker" class="circ ar gl">
 </div>
 <script src="main.js"></script> 
 </body>
