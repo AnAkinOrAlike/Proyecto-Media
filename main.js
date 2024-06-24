@@ -1,4 +1,4 @@
-/*document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function() {
     document.getElementById('colorPicker').addEventListener('change', function() {
         console.log(this.value);
         var selectedColor = this.value;
@@ -10,7 +10,7 @@
             let element = document.getElementById(starId);
             if (element) {
                 element.style.setProperty('--bg-color', selectedColor);
-}}})});*/
+}}})});
 
 document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('.box').forEach(function(box) {
