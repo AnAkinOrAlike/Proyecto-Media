@@ -28,8 +28,21 @@ input[type = "radio"]{ display:none;}
   'FILL' 0,
   'wght' 400,
   'GRAD' 0,
-  'opsz' 16
+  'opsz' 24
 }
+
+.star span {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+}
+
+.filled-star {
+  --bg-color: #a25b44;
+  color: var(--bg-color)
+}
+
 
 .table{
   padding: 0px 20px;
