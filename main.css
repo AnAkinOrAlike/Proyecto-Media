@@ -1,6 +1,5 @@
-
 .grid {
-  border: 2px black solid;
+  border: 4px black solid;
   height: 6cm;
   width: 10cm;
   display: grid;
@@ -28,10 +27,11 @@ input[type = "radio"]{ display:none;}
 }
 
 .table{
-  padding: 0px 20px;
+  padding: 4px 20px;
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
+  margin: 30px;
 }
 
 .box {
@@ -80,7 +80,7 @@ input[type = "radio"]{ display:none;}
   margin-right: 0.5cm;
   border-radius: 15%;
   background-color: #fff;
-  color: #6495ed;
+  color: #000000;
   font-weight: bolder;
   letter-spacing: 3px;
   transition: all 0.5s cubic-bezier(1, -0.01, 0, 1.53) 100ms;
@@ -151,6 +151,7 @@ input[type = "radio"]{ display:none;}
 .ar{
   height: 1.3cm;
   margin-right: 0.5cm;
+  border: none;
   transition: all 0.5s cubic-bezier(1, -0.01, 0, 1.53) 100ms;
   border-radius: 15%;
 }
@@ -207,7 +208,6 @@ input[type = "radio"]{ display:none;}
 }
 .circ{
   border-radius: 15%;
-    border: 2px solid black;
     padding: 8px 8px;
     display: flex;
     align-items: center;

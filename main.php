@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8" />
     <title>Base representada</title>
-    <link rel='stylesheet' href='main.css'>
+    <link rel='stylesheet' href='main.css?.0'>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"/>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
 </head>
 <body>
     <div class="table">
@@ -44,18 +43,19 @@
             <?php if ($numGrid < $totalRegistro) {
                 $registro = $query->fetch(PDO::FETCH_ASSOC);
                 $numGrid++;
+                $Hex = htmlspecialchars($registro['HEX_CLR']);
             ?>
-                <div class="ghti" id="headline">
+                <div class="ghti" id="headline" style="background-color: <?php echo $Hex;?>">
                     <?php echo htmlspecialchars($registro['TITLE']);?>
                     <div class="rhyr"><?php echo htmlspecialchars($registro['YEAR']);?></div>
                 </div>
-                <div class="ghbs" id="box" data-star="<?php echo htmlspecialchars($registro['STARS']);?>">
+                <div class="ghbs" id="box" style="background-color: <?php echo $Hex;?>" data-star="<?php echo htmlspecialchars($registro['STARS']);?>">
                     <div class="bstr gl" id="star">
                         <?php
                             $starCount = intval($registro['STARS']);
                             
                             for ($i = 0; $i < $starCount; $i++) {
-                                echo '<span class="filled-star">&#9733;</span>';
+                                echo '<span class="filled-star" style="color:'.$Hex.'">&#9733;</span>';
                             }
                             for ($i = 0; $i < 5 - $starCount; $i++) {
                                 echo '<span class="empty-star">&#9734;</span>';
@@ -105,8 +105,6 @@
             <?php } ?>
         </div>
 
-        
-
         <div class="grid base">
                 <div class="box hrow ti" id="hr"><h1>Titulo</h1></div>
                 <div class="box hrow st" id="mhr">
@@ -129,15 +127,12 @@
                 <div class="box dur">Duracion</div>
                 <div class="box dccol cv">¡Categoría¡ vista el: ¡Visto¡</div>
         </div>
-        
-        <?php echo "Se muestran {$numGrid} div.grid"; ?>
     </div>
 <div style="display: flex;justify-content: center;">
     <button class="gl ar" onclick="location.reload();"><span class="material-symbols-outlined">refresh</span></button>
-
     <button class="gl ar"><span class="material-symbols-outlined">arrow_back</span></button>
-
     <input type="color" id="colorPicker" class="circ ar gl">
+    <p><?php echo "Se muestran {$numGrid} div.grid  "; ?></p>
 </div>
 <script src="main.js"></script> 
 </body>
